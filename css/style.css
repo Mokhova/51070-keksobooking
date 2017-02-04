@@ -652,6 +652,6 @@ select option:hover {
     border-radius: 50%;
 }
 
-.invisible {
+.closed {
   display: none;
 }
