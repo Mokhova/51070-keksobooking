@@ -7,6 +7,7 @@ var timeIn = document.querySelector('#time');
 var timeOut = document.querySelector('#timeout');
 var capacity = document.querySelector('#capacity');
 var roomNumber = document.querySelector('#room_number');
+var ENTER_KEY_CODE = 13;
 
 // Ограничения полей
 var formTitle = document.querySelector('#title');
@@ -23,8 +24,11 @@ document.querySelector('#address').required = true;
 
 // Деактивировать текущий пин
 function deactivatePin() {
-  if (document.querySelector('.pin--active')) {
-    document.querySelector('.pin--active').classList.remove('pin--active');
+  var activePin = document.querySelector('.pin--active');
+  if (activePin) {
+    activePin.setAttribute('aria-label', 'Объявление на карте'); // Поменять ARIA-LABEL
+    toggleARIAPressed();
+    activePin.classList.remove('pin--active');
   }
 }
 
@@ -35,6 +39,8 @@ function selectPin(evt) {
     if (target.classList.contains('pin')) {
       deactivatePin();
       target.classList.add('pin--active');
+      toggleARIAPressed();
+      target.setAttribute('aria-label', 'Выбранное объявление на карте'); // Поменять ARIA-LABEL
       return;
     }
     target = target.parentNode;
@@ -50,6 +56,28 @@ map.addEventListener('click', function (evt) {
   selectPin(evt);
   dialog.classList.remove('closed');
 });
+
+// Проверяем нажатие на enter
+function pressedEnterKey(evt) {
+  return evt.target && evt.keyCode === ENTER_KEY_CODE;
+}
+
+// Переключение пинов с клавиатуры
+map.addEventListener('keydown', function (evt) {
+  if (pressedEnterKey(evt)) {
+    selectPin(evt);
+    dialog.classList.remove('closed');
+  }
+});
+
+// Меняю ARIA-атрибут pressed у кнопок
+function toggleARIAPressed() {
+  var activePinARIA = map.querySelector('.pin--active');
+  if (activePinARIA) {
+    var pressed = (activePinARIA.getAttribute('aria-pressed') === 'true');
+    activePinARIA.setAttribute('aria-pressed', !pressed);
+  }
+}
 
 // Синк разных значений в форме
 function addChangeEvent(element, callback) {
