@@ -23,8 +23,17 @@
 
   document.querySelector('#address').required = true;
 
-  window.synchronizeFields(roomNumber, capacity, ['1', '2', '100'], ['0', '3', '3'], 'value');
-  window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, 'value');
-  window.synchronizeFields(type, price, priceTypeValues, priceTypeValues, 'min');
+  function syncValue(element, value) {
+    element.value = value;
+  }
+
+  function syncValueWithMin(element, value) {
+    element.min = value;
+  }
+
+
+  window.synchronizeFields(roomNumber, capacity, ['1', '2', '100'], ['0', '3', '3'], syncValue);
+  window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncValue);
+  window.synchronizeFields(type, price, priceTypeValues, priceTypeValues, syncValueWithMin);
 
 })();

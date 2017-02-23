@@ -10,12 +10,18 @@ window.keyHandler = (function () {
     },
 
     // По ентеру совершаем действия
-    onEnter: function (actionWithEvt, actionNoEvt, evt) {
+    // onEnter: function (actionWithEvt, actionNoEvt, evt) {
+    //   if (window.keyHandler.pressedEnterKey(evt)) {
+    //     actionWithEvt(evt);
+    //     if (actionNoEvt) {
+    //       actionNoEvt();
+    //     }
+    //   }
+    // },
+
+    onEnter: function (action, evt) {
       if (window.keyHandler.pressedEnterKey(evt)) {
-        actionWithEvt(evt);
-        if (actionNoEvt) {
-          actionNoEvt();
-        }
+        action(evt);
       }
     },
 

@@ -2,7 +2,6 @@
 
 window.initializePins = (function () {
   var map = document.querySelector('.tokyo__pin-map');
-  var dialog = document.querySelector('.dialog');
   var closeIcon = document.querySelector('.dialog__close');
 
   // Деактивировать текущий пин
@@ -30,33 +29,30 @@ window.initializePins = (function () {
     }
   }
 
-  // Открытие карточки
-  function openDialog() {
-    dialog.classList.remove('closed');
+  // Функция возвращения фокуса на активный пин
+  function returnFocusToIcon() {
+    document.querySelector('.pin--active').focus();
   }
 
-  function closeDialog() {
-    dialog.classList.add('closed');
-  }
+  window.showCard(returnFocusToIcon);
 
-  // Закрытие диалога по крестику по клику и энтеру
+
+  // Выбрать/снять пин по клику
   closeIcon.addEventListener('click', function () {
-    closeDialog();
     deactivatePin();
   });
 
-  closeIcon.addEventListener('keydown', function (evt) {
-    window.keyHandler.onEnter(closeDialog, deactivatePin, evt);
-  });
-
-  // Выбор пина по клику и энтеру
   map.addEventListener('click', function (evt) {
     selectPin(evt);
-    openDialog();
+  });
+
+  // Выбрать/снять пин по ентеру
+  closeIcon.addEventListener('keydown', function (evt) {
+    window.keyHandler.onEnter(deactivatePin, evt);
   });
 
   map.addEventListener('keydown', function (evt) {
-    window.keyHandler.onEnter(selectPin, openDialog, evt);
+    window.keyHandler.onEnter(selectPin, evt);
   });
 
 })();
