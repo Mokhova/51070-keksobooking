@@ -9,13 +9,10 @@ window.keyHandler = (function () {
       return evt.target && evt.keyCode === ENTER_KEY_CODE;
     },
 
-    // По ентеру совершаем действия
-    onEnter: function (actionWithEvt, actionNoEvt, evt) {
+    // По ентеру совершаем действие
+    onEnter: function (action, evt) {
       if (window.keyHandler.pressedEnterKey(evt)) {
-        actionWithEvt(evt);
-        if (actionNoEvt) {
-          actionNoEvt();
-        }
+        action(evt);
       }
     },
 
