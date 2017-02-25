@@ -10,7 +10,7 @@ window.renderPin = (function () {
     pinAvatar.src = data.author.avatar;
     newPin.style.left = data.location.x + 'px';
     newPin.style.top = data.location.y + 'px';
-    newPin.setAttribute('tabindex', 1);
+    newPin.setAttribute('tabindex', '1');
     newPin.data = data;
     return newPin;
   };

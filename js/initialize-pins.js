@@ -21,16 +21,11 @@ window.initializePins = (function () {
   // Загружаем данныее, запоминаем и отрисовываем первые три объекта (пины)
   window.load(DATA_URL, function (data) {
     similarApartments = data;
-    var firstThreeApartments = similarApartments.slice(1, 4);
+    var firstThreeApartments = similarApartments.slice(0, 3);
     firstThreeApartments.forEach(function (i) {
       fragment.appendChild(window.renderPin(i));
     });
     map.appendChild(fragment);
-
-    // Отрисовываем диалог главного пина
-    var pinMain = document.querySelector('.pin__main');
-    pinMain.data = similarApartments[0];
-    window.showCard.openDialog(pinMain.data);
   });
 
 
@@ -48,7 +43,7 @@ window.initializePins = (function () {
   function selectPin(evt) {
     var target = evt.target;
     while (target !== map) {
-      if (target.classList.contains('pin')) {
+      if (target.classList.contains('pin') && !target.classList.contains('pin__main')) {
         deactivatePin();
         target.classList.add('pin--active');
         window.keyHandler.toggleARIAPressed('.pin--active');
