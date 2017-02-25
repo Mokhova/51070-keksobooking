@@ -21,11 +21,16 @@ window.initializePins = (function () {
   // Загружаем данныее, запоминаем и отрисовываем первые три объекта (пины)
   window.load(DATA_URL, function (data) {
     similarApartments = data;
-    var firstThreeApartments = similarApartments.slice(0, 3);
+    var firstThreeApartments = similarApartments.slice(1, 4);
     firstThreeApartments.forEach(function (i) {
-      fragment.appendChild(window.render(i));
+      fragment.appendChild(window.renderPin(i));
     });
     map.appendChild(fragment);
+
+    // Отрисовываем диалог главного пина
+    var pinMain = document.querySelector('.pin__main')
+    pinMain.data = similarApartments[0];
+    window.showCard.openDialog(pinMain.data);
   });
 
 
@@ -39,7 +44,6 @@ window.initializePins = (function () {
     }
   }
 
-
   // Выбор пина через делегирование событий
   function selectPin(evt) {
     var target = evt.target;
@@ -49,6 +53,7 @@ window.initializePins = (function () {
         target.classList.add('pin--active');
         window.keyHandler.toggleARIAPressed('.pin--active');
         window.keyHandler.toggleAriaLabel(target, 'Выбранное объявление на карте');
+        window.showCard.openDialog(target.data);
         return;
       }
       target = target.parentNode;
@@ -62,25 +67,21 @@ window.initializePins = (function () {
 
   map.addEventListener('click', function (evt) {
     selectPin(evt);
-    window.showCard.openDialog(evt.target.data, returnFocusToIcon);
   });
 
   map.addEventListener('keydown', function (evt) {
     window.keyHandler.onEnter(selectPin, evt);
-    window.keyHandler.onEnter(function () {
-      window.showCard.openDialog(evt.target.data, returnFocusToIcon);
-    }, evt);
   });
 
-  // НЕ РАБОТАЕТ, потому что диалог не отрисовывается
   // Выбрать/снять пин по ентеру
-  // closeIcon.addEventListener('keydown', function (evt) {
-  //   window.keyHandler.onEnter(deactivatePin, evt);
-  // });
+  closeIcon.addEventListener('keydown', function (evt) {
+    window.showCard.keyCloseDialog(evt, returnFocusToIcon);
+    window.keyHandler.onEnter(deactivatePin, evt);
+  });
 
   // Выбрать/снять пин по клику
-  // closeIcon.addEventListener('click', function () {
-  //   deactivatePin();
-  // });
-
+  closeIcon.addEventListener('click', function () {
+    deactivatePin();
+    window.showCard.closeDialog();
+  });
 })();

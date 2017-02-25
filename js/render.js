@@ -1,6 +1,6 @@
 'use strict';
 
-window.render = (function () {
+window.renderPin = (function () {
   var templateElement = document.querySelector('#pin-template');
   var pinToClone = templateElement.content.querySelector('.pin');
 
@@ -11,6 +11,7 @@ window.render = (function () {
     newPin.style.left = data.location.x + 'px';
     newPin.style.top = data.location.y + 'px';
     newPin.setAttribute('tabindex', 1);
+    newPin.data = data;
     return newPin;
   };
 })();

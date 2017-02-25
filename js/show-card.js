@@ -2,32 +2,20 @@
 
 window.showCard = (function () {
   var map = document.querySelector('.tokyo__pin-map');
-  var templateElement = document.querySelector('#dialog-template');
-  var dialogToClone = templateElement.content.querySelector('.dialog');
-  var newDialog = dialogToClone.cloneNode(true);
-  // var closeIcon = newDialog.querySelector('.dialog__close');
-  var dialogTitle = newDialog.querySelector('.lodge__title');
-  var dialogAddress = newDialog.querySelector('.lodge__address');
-  var dialogPrice = newDialog.querySelector('.lodge__price');
-  var dialogType = newDialog.querySelector('.lodge__type');
-  var dialogRoomsGuests = newDialog.querySelector('.lodge__rooms-and-guests');
-  var dialogCheckInOut = newDialog.querySelector('.lodge__checkin-time');
-  var dialogFeatures = newDialog.querySelector('.lodge__features');
-  var dialogDescription = newDialog.querySelector('.lodge__description');
-  var dialogPhotos = newDialog.querySelector('.lodge__photos');
-  var returnFocus;
-
-  // Проверяем, является ли переменна функцией
-  function callReturnFocus() {
-    if (typeof returnFocus === 'function') {
-      returnFocus();
-    }
-  }
+  var dialog = document.querySelector('.dialog');
+  var dialogTitle = dialog.querySelector('.lodge__title');
+  var dialogAddress = dialog.querySelector('.lodge__address');
+  var dialogPrice = dialog.querySelector('.lodge__price');
+  var dialogType = dialog.querySelector('.lodge__type');
+  var dialogRoomsGuests = dialog.querySelector('.lodge__rooms-and-guests');
+  var dialogCheckInOut = dialog.querySelector('.lodge__checkin-time');
+  var dialogFeatures = dialog.querySelector('.lodge__features');
+  var dialogDescription = dialog.querySelector('.lodge__description');
+  var dialogPhotos = dialog.querySelector('.lodge__photos');
 
   // Отрисовка диайлога в зависимости от данных
   function openDialog(itemData) {
-    newDialog.data = itemData;
-    newDialog.classList.remove('closed');
+    dialog.classList.remove('closed');
 
     dialogTitle.innerHTML = itemData.offer.title;
     dialogAddress.innerHTML = itemData.offer.address;
@@ -56,21 +44,22 @@ window.showCard = (function () {
       photo.src = i;
       dialogPhotos.appendChild(photo);
     });
-
-    map.appendChild(newDialog);
   }
 
   return {
-    openDialog: openDialog,
-
-    closeDialog: function () {
-      newDialog.classList.add('closed');
+    openDialog: function (itemData) {
+      openDialog(itemData);
     },
 
-    keyCloseDialog: function (evt) {
+    closeDialog: function () {
+      dialog.classList.add('closed');
+    },
+
+    keyCloseDialog: function(evt, cb) {
       window.keyHandler.onEnter(window.showCard.closeDialog, evt);
-      callReturnFocus();
+      if(typeof cb === 'function') {
+        cb();
+      }
     }
   };
-
 })();
