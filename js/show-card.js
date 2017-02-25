@@ -1,7 +1,6 @@
 'use strict';
 
 window.showCard = (function () {
-  var map = document.querySelector('.tokyo__pin-map');
   var dialog = document.querySelector('.dialog');
   var dialogTitle = dialog.querySelector('.lodge__title');
   var dialogAddress = dialog.querySelector('.lodge__address');
@@ -55,9 +54,9 @@ window.showCard = (function () {
       dialog.classList.add('closed');
     },
 
-    keyCloseDialog: function(evt, cb) {
+    keyCloseDialog: function (evt, cb) {
       window.keyHandler.onEnter(window.showCard.closeDialog, evt);
-      if(typeof cb === 'function') {
+      if (typeof cb === 'function') {
         cb();
       }
     }

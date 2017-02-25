@@ -28,7 +28,7 @@ window.initializePins = (function () {
     map.appendChild(fragment);
 
     // Отрисовываем диалог главного пина
-    var pinMain = document.querySelector('.pin__main')
+    var pinMain = document.querySelector('.pin__main');
     pinMain.data = similarApartments[0];
     window.showCard.openDialog(pinMain.data);
   });
