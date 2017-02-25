@@ -19,9 +19,9 @@ window.keyHandler = (function () {
     // Меняем атбрибут aria-pressed для роли «кнопка»
     toggleARIAPressed: function (elementClass) {
       var element = document.querySelector(elementClass);
-      if (element) {
-        var pressed = (element.getAttribute('aria-pressed') === 'true');
-        element.setAttribute('aria-pressed', !pressed);
+      if (element !== null) {
+        var pressed = !(element.getAttribute('aria-pressed') === 'true');
+        element.setAttribute('aria-pressed', pressed.toString());
       }
     },
 
