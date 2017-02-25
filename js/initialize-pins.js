@@ -3,6 +3,31 @@
 window.initializePins = (function () {
   var map = document.querySelector('.tokyo__pin-map');
   var closeIcon = document.querySelector('.dialog__close');
+  var DATA_URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
+  var similarApartments = [];
+  var fragment = document.createDocumentFragment();
+
+  // Очистим карту от дефолтных пинов
+  function cleanMap() {
+    var pins = map.querySelectorAll('.pin');
+    pins.forEach(function (i) {
+      if (!i.classList.contains('pin__main')) {
+        map.removeChild(i);
+      }
+    });
+  }
+  cleanMap();
+
+  // Загружаем данныее, запоминаем и отрисовываем первые три объекта (пины)
+  window.load(DATA_URL, function (data) {
+    similarApartments = data;
+    var firstThreeApartments = similarApartments.slice(0, 3);
+    firstThreeApartments.forEach(function (i) {
+      fragment.appendChild(window.render(i));
+    });
+    map.appendChild(fragment);
+  });
+
 
   // Деактивировать текущий пин
   function deactivatePin() {
@@ -13,6 +38,7 @@ window.initializePins = (function () {
       activePin.classList.remove('pin--active');
     }
   }
+
 
   // Выбор пина через делегирование событий
   function selectPin(evt) {
@@ -34,25 +60,27 @@ window.initializePins = (function () {
     document.querySelector('.pin--active').focus();
   }
 
-  window.showCard(returnFocusToIcon);
-
-
-  // Выбрать/снять пин по клику
-  closeIcon.addEventListener('click', function () {
-    deactivatePin();
-  });
-
   map.addEventListener('click', function (evt) {
     selectPin(evt);
-  });
-
-  // Выбрать/снять пин по ентеру
-  closeIcon.addEventListener('keydown', function (evt) {
-    window.keyHandler.onEnter(deactivatePin, evt);
+    window.showCard.openDialog(evt.target.data, returnFocusToIcon);
   });
 
   map.addEventListener('keydown', function (evt) {
     window.keyHandler.onEnter(selectPin, evt);
+    window.keyHandler.onEnter(function () {
+      window.showCard.openDialog(evt.target.data, returnFocusToIcon);
+    }, evt);
   });
+
+  // НЕ РАБОТАЕТ, потому что диалог не отрисовывается
+  // Выбрать/снять пин по ентеру
+  // closeIcon.addEventListener('keydown', function (evt) {
+  //   window.keyHandler.onEnter(deactivatePin, evt);
+  // });
+
+  // Выбрать/снять пин по клику
+  // closeIcon.addEventListener('click', function () {
+  //   deactivatePin();
+  // });
 
 })();

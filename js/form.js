@@ -9,7 +9,6 @@
   var priceTypeValues = ['1000', '0', '10000'];
   var timeValues = ['12', '13', '14'];
 
-
   // Ограничения полей
   var formTitle = document.querySelector('#title');
   formTitle.required = true;
@@ -30,7 +29,6 @@
   function syncValueWithMin(element, value) {
     element.min = value;
   }
-
 
   window.synchronizeFields(roomNumber, capacity, ['1', '2', '100'], ['0', '3', '3'], syncValue);
   window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncValue);
