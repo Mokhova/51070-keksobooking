@@ -62,8 +62,8 @@ window.filterApartments = (function () {
   function isCorrect(apartmentData) {
     return isCorrectPrice(apartmentData.offer.price) &&
       isCorrectField(apartmentData.offer.type, 0) &&
-      isCorrectField(apartmentData.offer.rooms, 2) &&
-      isCorrectField(apartmentData.offer.guests, 3) &&
+      isCorrectField(apartmentData.offer.rooms.toString(), 2) &&
+      isCorrectField(apartmentData.offer.guests.toString(), 3) &&
       isCorrectFeature(apartmentData.offer.features);
   }
 

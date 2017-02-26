@@ -9,7 +9,7 @@ window.initializePins = (function () {
   var filteredApartments = [];
   var fragment = document.createDocumentFragment();
 
-  // Очистим карту от дефолтных пинов
+  // Очистка карту от дефолтных пинов
   function cleanMap() {
     var pins = map.querySelectorAll('.pin');
     pins.forEach(function (i) {
@@ -17,19 +17,23 @@ window.initializePins = (function () {
         map.removeChild(i);
       }
     });
+    window.showCard.closeDialog();
   }
   cleanMap();
+
+  function renderData(array) {
+    array.forEach(function (item) {
+      fragment.appendChild(window.renderPin(item));
+    });
+    map.appendChild(fragment);
+  }
 
   // Загружаем данныее, запоминаем и отрисовываем первые три объекта (пины)
   window.load(DATA_URL, function (data) {
     similarApartments = data;
     var firstThreeApartments = similarApartments.slice(0, 3);
-    firstThreeApartments.forEach(function (i) {
-      fragment.appendChild(window.renderPin(i));
-    });
-    map.appendChild(fragment);
+    renderData(firstThreeApartments);
   });
-
 
   // Деактивировать текущий пин
   function deactivatePin() {
@@ -59,9 +63,10 @@ window.initializePins = (function () {
 
   // Функция возвращения фокуса на активный пин
   function returnFocusToIcon() {
-    document.querySelector('.pin--active').focus();
+    map.querySelector('.pin--active').focus();
   }
 
+  // Выбрать/снять пин по клику/ентеру
   map.addEventListener('click', function (evt) {
     selectPin(evt);
   });
@@ -70,25 +75,20 @@ window.initializePins = (function () {
     window.keyHandler.onEnter(selectPin, evt);
   });
 
-  // Выбрать/снять пин по ентеру
   closeIcon.addEventListener('keydown', function (evt) {
     window.showCard.keyCloseDialog(evt, returnFocusToIcon);
     window.keyHandler.onEnter(deactivatePin, evt);
   });
 
-  // Выбрать/снять пин по клику
   closeIcon.addEventListener('click', function () {
     deactivatePin();
     window.showCard.closeDialog();
   });
 
+  // Перерисовка пинов по изменению в фильтрах
   filters.addEventListener('change', function () {
     cleanMap();
     filteredApartments = window.filterApartments(similarApartments);
-    filteredApartments.forEach(function (i) {
-      fragment.appendChild(window.renderPin(i));
-    });
-    map.appendChild(fragment);
+    renderData(filteredApartments);
   });
-
 })();
