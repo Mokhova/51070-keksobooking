@@ -10,21 +10,22 @@ window.filterApartments = (function () {
   var UPPER_PRICE_LIMIT = 50000;
   var VALUE_ANY = 'any';
 
-  filtersSelectId.forEach(function (item) {
-    var selectNode = document.querySelector('#' + item);
-    if (selectNode !== null) {
-      selectedValues.push(selectNode.value);
-    }
-  });
-
-  filtersFeatureId.forEach(function (item) {
-    var featureCheckbox = document.querySelector('#' + item);
-    if (featureCheckbox !== null) {
-      if (featureCheckbox.checked) {
-        featuresValues.push(featureCheckbox.value);
+  function getSelectedValues() {
+    filtersSelectId.forEach(function (item) {
+      var selectNode = document.querySelector('#' + item);
+      if (selectNode !== null) {
+        selectedValues.push(selectNode.value);
       }
-    }
-  });
+    });
+    filtersFeatureId.forEach(function (item) {
+      var featureCheckbox = document.querySelector('#' + item);
+      if (featureCheckbox !== null) {
+        if (featureCheckbox.checked) {
+          featuresValues.push(featureCheckbox.value);
+        }
+      }
+    });
+  }
 
   function isCorrectPrice(itemPrice) {
     var priceCheck = false;
@@ -47,16 +48,8 @@ window.filterApartments = (function () {
     return priceCheck;
   }
 
-  function isCorrectType(itemType) {
-    return selectedValues[0] === VALUE_ANY || selectedValues[0] === itemType;
-  }
-
-  function isCorrectRoomNumeber(itemRoomNumeber) {
-    return selectedValues[2] === VALUE_ANY || selectedValues[2] === itemRoomNumeber;
-  }
-
-  function isCorrectGuestsNumeber(itemGuestsNumeber) {
-    return selectedValues[3] === VALUE_ANY || selectedValues[3] === itemGuestsNumeber;
+  function isCorrectField(itemField, selectIdIndex) {
+    return selectedValues[selectIdIndex] === VALUE_ANY || selectedValues[selectIdIndex] === itemField;
   }
 
   function isCorrectFeature(itemFeatures) {
@@ -68,13 +61,17 @@ window.filterApartments = (function () {
 
   function isCorrect(apartmentData) {
     return isCorrectPrice(apartmentData.offer.price) &&
-      isCorrectType(apartmentData.offer.type) &&
-      isCorrectRoomNumeber(apartmentData.offer.rooms) &&
-      isCorrectGuestsNumeber(apartmentData.offer.guests) &&
+      isCorrectField(apartmentData.offer.type, 0) &&
+      isCorrectField(apartmentData.offer.rooms, 2) &&
+      isCorrectField(apartmentData.offer.guests, 3) &&
       isCorrectFeature(apartmentData.offer.features);
   }
 
   return function (allApartments) {
+    newApartments = [];
+    selectedValues = [];
+    featuresValues = [];
+    getSelectedValues();
     allApartments.forEach(function (apartment) {
       if (isCorrect(apartment)) {
         newApartments.push(apartment);
@@ -82,5 +79,4 @@ window.filterApartments = (function () {
     });
     return newApartments;
   };
-
 })();

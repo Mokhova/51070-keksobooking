@@ -2,13 +2,12 @@
 
 window.initializePins = (function () {
   var map = document.querySelector('.tokyo__pin-map');
+  var filters = document.querySelector('.tokyo__filters');
   var closeIcon = document.querySelector('.dialog__close');
   var DATA_URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
   var similarApartments = [];
+  var filteredApartments = [];
   var fragment = document.createDocumentFragment();
-
-  // Для фильтров
-  var filters = document.querySelector('.tokyo__filters');
 
   // Очистим карту от дефолтных пинов
   function cleanMap() {
@@ -85,7 +84,7 @@ window.initializePins = (function () {
 
   filters.addEventListener('change', function () {
     cleanMap();
-    var filteredApartments = window.filterApartments(similarApartments);
+    filteredApartments = window.filterApartments(similarApartments);
     filteredApartments.forEach(function (i) {
       fragment.appendChild(window.renderPin(i));
     });
