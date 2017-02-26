@@ -7,6 +7,9 @@ window.initializePins = (function () {
   var similarApartments = [];
   var fragment = document.createDocumentFragment();
 
+  // Для фильтров
+  var filters = document.querySelector('.tokyo__filters');
+
   // Очистим карту от дефолтных пинов
   function cleanMap() {
     var pins = map.querySelectorAll('.pin');
@@ -79,4 +82,14 @@ window.initializePins = (function () {
     deactivatePin();
     window.showCard.closeDialog();
   });
+
+  filters.addEventListener('change', function () {
+    cleanMap();
+    var filteredApartments = window.filterApartments(similarApartments);
+    filteredApartments.forEach(function (i) {
+      fragment.appendChild(window.renderPin(i));
+    });
+    map.appendChild(fragment);
+  });
+
 })();

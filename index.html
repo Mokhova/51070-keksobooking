@@ -16,15 +16,16 @@
     <div class="tokyo__filters-container">
       <form action="#" class="tokyo__filters">
         <label><select name="housing_type" id="housing_type" class="tokyo__filter">
-          <option value="any" selected>Любой тип жилья</option>
-          <option value="flat">Квартира</option>
+          <option value="any">Любой тип жилья</option>
+          <option value="flat" selected>Квартира</option>
           <option value="house">Дом</option>
           <option value="bungalo">Сарай</option>
         </select></label>
         <label><select name="housing_price" id="housing_price" class="tokyo__filter">
+          <option value="any">Любой ценой&#x20bd;</option>
           <option value="middle" selected>10000 - 50000&#x20bd;</option>
           <option value="low">до 10000&#x20bd;</option>
-          <option value="hight">от 50000&#x20bd;</option>
+          <option value="high">от 50000&#x20bd;</option>
         </select></label>
         <label><select name="housing_room-number" id="housing_room-number" class="tokyo__filter">
           <option value="any" selected>Любое число комнат</option>
@@ -39,27 +40,27 @@
         </select></label>
         <fieldset id="housing_features" class="tokyo__filter-set">
           <label class="feature">
-            <input type="checkbox" name="feature" value="wifi"><span
+            <input type="checkbox" name="feature" value="wifi" id="wifi"><span
             class="feature__image  feature__image--wifi"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="dishwasher"><span
+            <input type="checkbox" name="feature" value="dishwasher" id="dishwasher"><span
             class="feature__image  feature__image--dishwasher"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="parking"><span
+            <input type="checkbox" name="feature" value="parking" id="parking"><span
             class="feature__image  feature__image--parking"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="washer"><span
+            <input type="checkbox" name="feature" value="washer" id="washer"><span
             class="feature__image  feature__image--washer"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="elevator"><span
+            <input type="checkbox" name="feature" value="elevator" id="elevator"><span
             class="feature__image  feature__image--elevator"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="conditioner"><span
+            <input type="checkbox" name="feature" value="conditioner" id="conditioner"><span
             class="feature__image  feature__image--conditioner"></span>
           </label>
         </fieldset>
@@ -262,6 +263,7 @@
   </div>
 </template>
 
+<script src="js/filter-apartments.js" type="application/javascript"></script>
 <script src="js/render.js" type="application/javascript"></script>
 <script src="js/load.js" type="application/javascript"></script>
 <script src="js/show-card.js" type="application/javascript"></script>
