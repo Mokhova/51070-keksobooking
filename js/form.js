@@ -32,7 +32,6 @@
 
   function syncValueWithMin(element, value) {
     element.min = value;
-    element.placeholder = value;
   }
 
   function syncValueWithPlaceholder(element, value) {
@@ -44,6 +43,5 @@
   window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncValue);
   window.synchronizeFields(timeOut, timeIn, timeValues, timeValues, syncValue);
   window.synchronizeFields(type, price, priceTypeValues, priceTypeValues, syncValueWithMin);
-  window.synchronizeFields(price, type, priceTypeValues, priceTypeValues, syncValue);
-  window.synchronizeFields(price, type, priceTypeValues, priceTypeValues, syncValueWithPlaceholder);
+  window.synchronizeFields(type, price, priceTypeValues, priceTypeValues, syncValueWithPlaceholder);
 })();

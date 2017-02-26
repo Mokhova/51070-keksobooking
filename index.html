@@ -14,62 +14,63 @@
   <section class="tokyo">
     <img src="img/main.png" alt="Tokyo" width="1200" height="700">
     <div class="tokyo__filters-container">
-      <form action="#" class="tokyo__filters">
-        <label><select name="housing_type" id="housing_type" class="tokyo__filter">
-          <option value="any" selected>Любой тип жилья</option>
-          <option value="flat">Квартира</option>
+      <form action="#" class="tokyo__filters" autocomplete="off">
+        <label><select name="housing_type" id="housing_type" class="tokyo__filter" tabindex="3">
+          <option value="any">Любой тип жилья</option>
+          <option value="flat" selected>Квартира</option>
           <option value="house">Дом</option>
           <option value="bungalo">Сарай</option>
         </select></label>
-        <label><select name="housing_price" id="housing_price" class="tokyo__filter">
+        <label><select name="housing_price" id="housing_price" class="tokyo__filter" tabindex="3">
+          <option value="any">Любой ценой</option>
           <option value="middle" selected>10000 - 50000&#x20bd;</option>
           <option value="low">до 10000&#x20bd;</option>
-          <option value="hight">от 50000&#x20bd;</option>
+          <option value="high">от 50000&#x20bd;</option>
         </select></label>
-        <label><select name="housing_room-number" id="housing_room-number" class="tokyo__filter">
+        <label><select name="housing_room-number" id="housing_room-number" class="tokyo__filter" tabindex="3">
           <option value="any" selected>Любое число комнат</option>
           <option value="1">Одна комната</option>
           <option value="2">Две комнаты</option>
           <option value="3">Три комнаты</option>
         </select></label>
-        <label><select name="housing_guests-number" id="housing_guests-number" class="tokyo__filter">
+        <label><select name="housing_guests-number" id="housing_guests-number" class="tokyo__filter" tabindex="3">
           <option value="any" selected>Любое число гостей</option>
           <option value="1">Один гость</option>
           <option value="2">Два гостя</option>
         </select></label>
-        <fieldset id="housing_features" class="tokyo__filter-set">
+        <fieldset id="housing_features" class="tokyo__filter-set" tabindex="3">
           <label class="feature">
-            <input type="checkbox" name="feature" value="wifi"><span
+            <input type="checkbox" name="feature" value="wifi" id="wifi"><span
             class="feature__image  feature__image--wifi"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="dishwasher"><span
+            <input type="checkbox" name="feature" value="dishwasher" id="dishwasher"><span
             class="feature__image  feature__image--dishwasher"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="parking"><span
+            <input type="checkbox" name="feature" value="parking" id="parking"><span
             class="feature__image  feature__image--parking"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="washer"><span
+            <input type="checkbox" name="feature" value="washer" id="washer"><span
             class="feature__image  feature__image--washer"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="elevator"><span
+            <input type="checkbox" name="feature" value="elevator" id="elevator"><span
             class="feature__image  feature__image--elevator"></span>
           </label>
           <label class="feature">
-            <input type="checkbox" name="feature" value="conditioner"><span
+            <input type="checkbox" name="feature" value="conditioner" id="conditioner"><span
             class="feature__image  feature__image--conditioner"></span>
           </label>
         </fieldset>
       </form>
     </div>
     <div class="tokyo__pin-map">
-      <div class="pin  pin__main" tabindex="1" role="button" aria-pressed="false" aria-label="Главное объявление на карте"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
-      <div class="pin  pin--active" style="left: 700px;top: 350px" tabindex="1" aria-pressed="true" aria-label="Выбранное объявление на карте"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-      <div class="pin" style="left: 400px;top: 400px" tabindex="1" aria-pressed="false" aria-label="Объявление на карте"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-      <div class="pin" aria-pressed="false" tabindex="1" aria-label="Объявление на карте"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin  pin__main" role="button" aria-pressed="false" aria-label="Главное объявление на карте" tabindex="1"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
+      <div class="pin  pin--active" style="left: 700px;top: 350px" role="button" aria-pressed="true" aria-label="Выбранное объявление на карте" tabindex="1"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin" style="left: 400px;top: 400px" role="button" aria-pressed="false" aria-label="Объявление на карте" tabindex="1"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin" role="button" aria-pressed="false" aria-label="Объявление на карте" tabindex="1"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40" tabindex="1"></div>
     </div>
     <div class="dialog" role="dialog" aria-label="Информация об объявлении">
       <div class="dialog__title"><img src="img/avatars/avatar.png" alt="Avatar" width="70" height="70">
@@ -117,7 +118,7 @@
     </div>
     <form class="notice__form">
       <div class="form__content">
-        <div class="form__panel">
+        <div class="form__panel" tabindex="4">
           <div class="form__element  form__element--wide">
             <label for="title">Заголовок объявления</label>
             <input id="title" type="text" placeholder="Милая, уютная квартирка, например">
@@ -158,7 +159,7 @@
             <textarea id="description" placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
           </div>
         </div>
-        <div class="form__panel">
+        <div class="form__panel" tabindex="4">
           <div class="form__element  form__element--wide">
             <label for="address">Адрес</label>
             <input id="address" type="text">
@@ -245,7 +246,7 @@
 <footer class="footer container">
   <div class="center-wrapper">
     <section class="footer-logo">
-      Сделано в <a tabindex="3" href="https://htmlacademy.ru" class="footer-logo-link"><img src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy"/>HTML Academy</a> &copy; 2017
+      Сделано в <a tabindex="5" href="https://htmlacademy.ru" class="footer-logo-link"><img src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy"/>HTML Academy</a> &copy; 2017
     </section>
     <nav class="footer-social">
       <a href="https://twitter.com/htmlacademy_ru" class="footer-social-item footer-social-item-twitter" target="_blank" rel="nofollow">Twitter</a>
@@ -257,11 +258,12 @@
 </footer>
 
 <template id="pin-template">
-  <div class="pin">
+  <div class="pin" tabindex="1">
     <img src="" alt="" class="rounded" width="40" height="40">
   </div>
 </template>
 
+<script src="js/filter-apartments.js" type="application/javascript"></script>
 <script src="js/render.js" type="application/javascript"></script>
 <script src="js/load.js" type="application/javascript"></script>
 <script src="js/show-card.js" type="application/javascript"></script>
