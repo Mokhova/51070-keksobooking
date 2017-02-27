@@ -66,23 +66,28 @@ window.initializePins = (function () {
     map.querySelector('.pin--active').focus();
   }
 
-  // Выбрать/снять пин по клику/ентеру
+  // Логика на закрытие диалога
+  function onDialogClose() {
+    deactivatePin();
+    window.showCard.closeDialog();
+    closeIcon.removeEventListener('keydown', onDialogClose);
+  }
+
+  function onKeyDialogClose(evt) {
+    window.showCard.keyCloseDialog(evt, returnFocusToIcon);
+    window.keyHandler.onEnter(deactivatePin, evt);
+    closeIcon.removeEventListener('keydown', onKeyDialogClose);
+  }
+
+  // Выбрать/снять пин, закрыть диалог
   map.addEventListener('click', function (evt) {
     selectPin(evt);
+    closeIcon.addEventListener('click', onDialogClose);
   });
 
   map.addEventListener('keydown', function (evt) {
     window.keyHandler.onEnter(selectPin, evt);
-  });
-
-  closeIcon.addEventListener('click', function () {
-    deactivatePin();
-    window.showCard.closeDialog();
-  });
-
-  closeIcon.addEventListener('keydown', function (evt) {
-    window.showCard.keyCloseDialog(evt, returnFocusToIcon);
-    window.keyHandler.onEnter(deactivatePin, evt);
+    closeIcon.addEventListener('keydown', onKeyDialogClose);
   });
 
   // Перерисовка пинов по изменению в фильтрах
