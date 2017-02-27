@@ -19,10 +19,8 @@ window.filterApartments = (function () {
     });
     filtersFeatureId.forEach(function (item) {
       var featureCheckbox = document.querySelector('#' + item);
-      if (featureCheckbox !== null) {
-        if (featureCheckbox.checked) {
-          featuresValues.push(featureCheckbox.value);
-        }
+      if (featureCheckbox !== null && featureCheckbox.checked) {
+        featuresValues.push(featureCheckbox.value);
       }
     });
   }
@@ -72,11 +70,7 @@ window.filterApartments = (function () {
     selectedValues = [];
     featuresValues = [];
     getSelectedValues();
-    allApartments.forEach(function (apartment) {
-      if (isCorrect(apartment)) {
-        newApartments.push(apartment);
-      }
-    });
+    newApartments = allApartments.filter(isCorrect);
     return newApartments;
   };
 })();

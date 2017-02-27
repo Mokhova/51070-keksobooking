@@ -38,7 +38,7 @@ window.initializePins = (function () {
   // Деактивировать текущий пин
   function deactivatePin() {
     var activePin = document.querySelector('.pin--active');
-    if (activePin) {
+    if (activePin !== null) {
       window.keyHandler.toggleAriaLabel(activePin, 'Объявление на карте');
       window.keyHandler.toggleARIAPressed('.pin--active');
       activePin.classList.remove('pin--active');
@@ -75,14 +75,14 @@ window.initializePins = (function () {
     window.keyHandler.onEnter(selectPin, evt);
   });
 
-  closeIcon.addEventListener('keydown', function (evt) {
-    window.showCard.keyCloseDialog(evt, returnFocusToIcon);
-    window.keyHandler.onEnter(deactivatePin, evt);
-  });
-
   closeIcon.addEventListener('click', function () {
     deactivatePin();
     window.showCard.closeDialog();
+  });
+
+  closeIcon.addEventListener('keydown', function (evt) {
+    window.showCard.keyCloseDialog(evt, returnFocusToIcon);
+    window.keyHandler.onEnter(deactivatePin, evt);
   });
 
   // Перерисовка пинов по изменению в фильтрах

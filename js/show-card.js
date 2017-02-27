@@ -3,6 +3,7 @@
 window.showCard = (function () {
   var dialog = document.querySelector('.dialog');
   var dialogTitle = dialog.querySelector('.lodge__title');
+  var dialogAvatar = dialog.querySelector('.dialog__avatar');
   var dialogAddress = dialog.querySelector('.lodge__address');
   var dialogPrice = dialog.querySelector('.lodge__price');
   var dialogType = dialog.querySelector('.lodge__type');
@@ -17,6 +18,7 @@ window.showCard = (function () {
     dialog.classList.remove('closed');
 
     dialogTitle.innerHTML = itemData.offer.title;
+    dialogAvatar.src = itemData.author.avatar;
     dialogAddress.innerHTML = itemData.offer.address;
     dialogPrice.innerHTML = itemData.offer.price + '₽ / ночь';
     dialogType.innerHTML = itemData.offer.type;
