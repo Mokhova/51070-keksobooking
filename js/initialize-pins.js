@@ -70,12 +70,14 @@ window.initializePins = (function () {
   function onDialogClose() {
     deactivatePin();
     window.showCard.closeDialog();
-    closeIcon.removeEventListener('keydown', onDialogClose);
+    closeIcon.removeEventListener('click', onDialogClose);
+    closeIcon.removeEventListener('keydown', onKeyDialogClose);
   }
 
   function onKeyDialogClose(evt) {
     window.showCard.keyCloseDialog(evt, returnFocusToIcon);
     window.keyHandler.onEnter(deactivatePin, evt);
+    closeIcon.removeEventListener('click', onDialogClose);
     closeIcon.removeEventListener('keydown', onKeyDialogClose);
   }
 
